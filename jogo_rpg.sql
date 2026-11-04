@@ -1,17 +1,6 @@
-/*
-    Atividade: Banco de dados para um jogo de RPG online
-    SGBD: Microsoft SQL Server
-
-    Modelo implementado:
-      USUARIOS 1:N PERSONAGENS
-      CLASSES  1:N PERSONAGENS
-      CLASSES  N:N HABILIDADES, resolvido por CLASSES_HABILIDADES
-*/
-
 SET NOCOUNT ON;
 GO
 
-/* Criação do banco de dados, caso ele ainda não exista. */
 IF DB_ID(N'JogoRPG') IS NULL
 BEGIN
     EXEC(N'CREATE DATABASE [JogoRPG];');
@@ -21,7 +10,6 @@ GO
 USE [JogoRPG];
 GO
 
-/* Entidade de usuários. */
 IF OBJECT_ID(N'dbo.USUARIOS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.USUARIOS
@@ -36,7 +24,6 @@ BEGIN
 END;
 GO
 
-/* Entidade de classes dos personagens. */
 IF OBJECT_ID(N'dbo.CLASSES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.CLASSES
@@ -50,7 +37,6 @@ BEGIN
 END;
 GO
 
-/* Entidade de habilidades disponíveis no jogo. */
 IF OBJECT_ID(N'dbo.HABILIDADES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.HABILIDADES
@@ -63,7 +49,6 @@ BEGIN
 END;
 GO
 
-/* Cada personagem pertence a um usuário e a uma classe. */
 IF OBJECT_ID(N'dbo.PERSONAGENS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PERSONAGENS
@@ -82,10 +67,6 @@ BEGIN
 END;
 GO
 
-/*
-    Tabela associativa que resolve o relacionamento N:N entre CLASSES e
-    HABILIDADES. A chave primária é composta pelas duas chaves estrangeiras.
-*/
 IF OBJECT_ID(N'dbo.CLASSES_HABILIDADES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.CLASSES_HABILIDADES
@@ -103,11 +84,6 @@ BEGIN
 END;
 GO
 
-/*
-    Consultas de conferência da estrutura criada.
-    Elas não alteram os dados e podem ser executadas no SQL Server Management
-    Studio para verificar tabelas, colunas e relacionamentos.
-*/
 SELECT
     TABLE_SCHEMA AS Esquema,
     TABLE_NAME AS Tabela
